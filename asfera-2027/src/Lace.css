@@ -1,0 +1,9 @@
+.lace {
+  position: absolute;
+  width: var(--lace, 34%);
+  height: auto;
+  color: rgba(226, 184, 134, 0.88);
+  pointer-events: none;
+}
+.lace-tl { top: -14%; left: -9%; }
+.lace-br { right: -9%; bottom: -14%; transform: rotate(180deg); }

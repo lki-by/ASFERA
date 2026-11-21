@@ -1,0 +1,168 @@
+.about-section {
+  position: relative;
+  padding: clamp(64px, 9vw, 112px) 24px;
+  background-color: var(--bg-deep);
+  background-image: url("./assets/images/section-texture.png");
+  background-position: center;
+  background-repeat: repeat;
+  background-size: auto;
+  scroll-margin-top: calc(var(--nav-height) + 20px);
+  text-align: center;
+}
+
+.timeline-link {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-bottom: clamp(28px, 4vw, 48px);
+  padding: 10px 24px;
+  border: 1px solid #d5a064;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffe6bf, #f1c994);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  color: var(--ink);
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.timeline-link:hover,
+.timeline-link:focus-visible {
+  transform: scale(1.1);
+  border-color: #ffe2b3;
+  background: linear-gradient(180deg, #fff0d6, #f8d7a8);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.34), 0 0 20px rgba(255, 218, 164, 0.38);
+}
+
+.timeline-link:active {
+  transform: scale(1.03);
+}
+
+.about-panel {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.95fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 64px);
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 56px);
+  border: 2px solid #c68e4e;
+  border-radius: 16px;
+  background-color: #f8e4c6;
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(255, 247, 224, 0.75), transparent 55%),
+    repeating-linear-gradient(0deg, rgba(104, 57, 22, 0.025), rgba(104, 57, 22, 0.025) 1px, transparent 1px, transparent 4px);
+  box-shadow: 0 14px 32px rgba(15, 0, 0, 0.35), 0 0 28px rgba(232, 196, 143, 0.16);
+  color: var(--ink);
+  text-align: left;
+}
+
+.about-panel::before {
+  position: absolute;
+  z-index: 0;
+  inset: 12px;
+  border: 1px solid rgba(104, 30, 2, 0.42);
+  border-radius: 9px;
+  box-shadow: inset 0 0 0 4px rgba(198, 142, 78, 0.12);
+  content: "";
+  pointer-events: none;
+}
+
+.about-panel > :not(.about-lace) {
+  position: relative;
+  z-index: 1;
+}
+
+.about-lace {
+  z-index: 2;
+  width: clamp(64px, 8vw, 100px);
+  color: #9c542b;
+  filter: drop-shadow(0 3px 4px rgba(68, 23, 5, 0.2));
+}
+
+.about-lace-tl { top: -24px; left: -24px; }
+.about-lace-tr { top: -24px; right: -24px; left: auto; transform: scaleX(-1); }
+.about-lace-bl { bottom: -24px; left: -24px; top: auto; transform: scaleY(-1); }
+.about-lace-br { right: -24px; bottom: -24px; transform: rotate(180deg); }
+
+.about-panel p {
+  font-size: clamp(1rem, 1.45vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.55;
+  text-align: justify;
+}
+
+.about-emblem-wrap {
+  justify-self: center;
+  width: min(100%, 440px);
+}
+
+.about-emblem {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: emblem-float 7s ease-in-out infinite;
+  filter: drop-shadow(0 6px 10px rgba(64, 15, 8, 0.18));
+}
+
+@media (max-width: 560px) {
+  .about-section {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .timeline-link {
+    margin-bottom: 30px;
+  }
+
+  .about-panel {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 20px;
+  }
+
+  .about-panel::before { inset: 9px; }
+  .about-lace { width: 64px; }
+  .about-lace-tl { top: -18px; left: -16px; }
+  .about-lace-tr { top: -18px; right: -16px; }
+  .about-lace-bl { bottom: -18px; left: -16px; }
+  .about-lace-br { right: -16px; bottom: -18px; }
+
+  .about-panel p {
+    font-size: 1rem;
+  }
+
+  .about-emblem-wrap {
+    width: min(78%, 320px);
+  }
+}
+
+/* kilau berjalan di tombol timeline */
+.timeline-link::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.6) 50%, transparent 70%);
+  content: "";
+  transform: translateX(-120%);
+  animation: sheen 5s ease-in-out 1.5s infinite;
+}
+
+@keyframes sheen {
+  0%, 55% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes emblem-float {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: 0 -10px; rotate: 1.5deg; }
+}
+
+/* tablet: tumpuk teks & emblem supaya tidak sempit */
+@media (max-width: 820px) {
+  .about-panel { grid-template-columns: 1fr; }
+  .about-emblem-wrap { width: min(70%, 360px); }
+}

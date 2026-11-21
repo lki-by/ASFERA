@@ -1,0 +1,128 @@
+/* =====================  COMING SOON CARD  ===================== */
+.soon-card {
+  --soon-gold: #e8c48f;
+  position: relative;
+  container-type: inline-size; /* semua ukuran di dalam pakai cqw → ikut lebar kartu */
+  width: 100%;
+  aspect-ratio: 1.42 / 1;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+}
+
+.soon-card:hover {
+  transform: translateY(-5px);
+  filter: brightness(1.06);
+}
+
+/* ---- variant: bingkai krem (Sponsors) ---- */
+.soon-card--frame {
+  border-radius: clamp(8px, 1.3vw, 14px);
+  background: linear-gradient(150deg, #fbe5c1 0%, #e8bd84 50%, #f7dcae 100%);
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 248, 230, 0.85),
+    inset 0 0 0 1px rgba(120, 60, 20, 0.35);
+}
+
+.soon-card--frame:hover {
+  box-shadow:
+    0 14px 24px rgba(0, 0, 0, 0.5),
+    0 0 18px rgba(232, 196, 143, 0.25),
+    inset 0 1px 0 rgba(255, 248, 230, 0.85),
+    inset 0 0 0 1px rgba(120, 60, 20, 0.35);
+}
+
+/* ---- variant: garis emas (Our Location) ---- */
+.soon-card--outline {
+  border: 2px solid var(--soon-gold);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.soon-card--outline:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.5), 0 0 22px rgba(232, 196, 143, 0.22);
+}
+
+/* ---- panel gelap di dalam ---- */
+.soon-panel {
+  --lace: 30cqw;
+  position: absolute;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(130, 28, 22, 0.6), transparent 72%),
+    repeating-linear-gradient(45deg, rgba(255, 200, 140, 0.035) 0 2px, transparent 2px 6px),
+    #3b0606;
+}
+
+.soon-card--frame .soon-panel {
+  inset: 6.5cqw 7.5cqw;
+  border-radius: 6cqw;
+  box-shadow:
+    inset 0 0 0 1px rgba(232, 196, 143, 0.28),
+    inset 0 4px 14px rgba(0, 0, 0, 0.55);
+}
+
+.soon-card--outline .soon-panel {
+  --lace: 34cqw;
+  inset: 0;
+  border-radius: 13px;
+}
+
+/* ornamen renda di pojok kiri-atas & kanan-bawah */
+.soon-panel::before,
+.soon-panel::after {
+  position: absolute;
+  width: var(--lace);
+  height: var(--lace);
+  background:
+    repeating-radial-gradient(circle at var(--cx) var(--cy), transparent 0 2.6cqw, rgba(232, 196, 143, 0.85) 2.6cqw 3.3cqw),
+    repeating-conic-gradient(from 0deg at var(--cx) var(--cy), rgba(232, 196, 143, 0.6) 0 4deg, transparent 4deg 12deg);
+  -webkit-mask: radial-gradient(circle at var(--cx) var(--cy), #000 calc(var(--lace) * 0.72), transparent var(--lace));
+  mask: radial-gradient(circle at var(--cx) var(--cy), #000 calc(var(--lace) * 0.72), transparent var(--lace));
+  opacity: 0.85;
+  content: "";
+  pointer-events: none;
+}
+
+.soon-panel::before { --cx: 0%; --cy: 0%; top: 0; left: 0; }
+.soon-panel::after { --cx: 100%; --cy: 100%; right: 0; bottom: 0; }
+
+/* teks emas berkilau */
+.soon-text {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  font-family: "IM Fell DW Pica", "IM Fell English", Georgia, serif;
+  font-size: 17cqw;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  background: linear-gradient(100deg, #d6a461 0%, #fdebc8 25%, #d6a461 50%, #fdebc8 75%, #d6a461 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+  animation: soon-shimmer 6s linear calc(var(--i, 0) * -0.5s) infinite;
+}
+
+.soon-card--outline .soon-text { font-size: 19cqw; }
+
+.soon-caption {
+  position: relative;
+  z-index: 1;
+  margin-top: 4cqw;
+  color: rgba(232, 196, 143, 0.78);
+  font-size: 6.4cqw;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@keyframes soon-shimmer {
+  from { background-position: 0% 0; }
+  to { background-position: 100% 0; }
+}

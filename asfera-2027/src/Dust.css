@@ -1,0 +1,36 @@
+.dust {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dust span {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  /* bintik cokelat halus di atas parchment */
+  background: radial-gradient(circle, rgba(122, 64, 22, 0.55) 0%, rgba(122, 64, 22, 0) 70%);
+  opacity: 0;
+  animation: dust-drift var(--d) ease-in-out var(--delay) infinite;
+}
+
+/* sebagian jadi kilau terang */
+.dust span:nth-child(3n) {
+  background: radial-gradient(circle, rgba(255, 248, 228, 0.95) 0%, rgba(255, 248, 228, 0) 70%);
+}
+
+@keyframes dust-drift {
+  0% { opacity: 0; transform: translate3d(0, 0, 0); }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.55; }
+  100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dust { display: none; }
+}

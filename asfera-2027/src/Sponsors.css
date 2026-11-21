@@ -1,0 +1,84 @@
+.sponsors-section {
+  position: relative;
+  padding: clamp(64px, 9vw, 110px) 24px;
+  background-color: var(--bg-deep);
+  background-image: url("./assets/images/section-texture.png");
+  background-position: center;
+  background-repeat: repeat;
+  background-size: auto;
+  scroll-margin-top: calc(var(--nav-height) + 20px);
+}
+
+.sponsors-section .section-title { margin-bottom: clamp(32px, 5vw, 64px); }
+
+.sponsor-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(10px, 1.8vw, 20px);
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+
+.sponsor-card {
+  position: relative;
+  aspect-ratio: 1.4 / 1;
+  overflow: hidden;
+  border-radius: 10px;
+  padding: 7%;
+  background: linear-gradient(180deg, #fae1b9, #eec88f);
+  box-shadow: inset 0 0 0 1px #b8793e, 0 5px 12px rgba(0, 0, 0, 0.42);
+  opacity: 0;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* masuk bergelombang saat grid terlihat (fill "backwards" supaya hover tetap jalan) */
+.sponsor-grid.is-visible .sponsor-card {
+  opacity: 1;
+  animation: sponsor-pop 600ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(var(--i) * 45ms);
+}
+.sponsor-card:hover {
+  transform: translateY(-5px) scale(1.04);
+  filter: drop-shadow(0 12px 12px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 10px rgba(240, 201, 142, 0.35));
+}
+
+@keyframes sponsor-pop {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to { opacity: 1; transform: none; }
+}
+
+.sponsor-card img {
+  position: absolute;
+  top: 50%;
+  left: 7%;
+  display: block;
+  width: 86%;
+  height: auto;
+  transform: translateY(-50%);
+}
+
+.sponsor-card::after {
+  position: absolute;
+  inset: 7%;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 230, 190, 0.28) 50%, transparent 65%);
+  content: "";
+  pointer-events: none;
+  transform: translateX(-130%);
+  animation: sponsor-sheen 7s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.3s);
+}
+
+@keyframes sponsor-sheen {
+  0%, 70% { transform: translateX(-130%); }
+  100% { transform: translateX(130%); }
+}
+
+@media (max-width: 760px) {
+  .sponsor-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .sponsor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sponsor-card::after { display: none; }
+}
