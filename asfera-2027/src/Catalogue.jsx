@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BackButton from "./BackButton.jsx";
 import emoneyFront from "./assets/images/catalogue-emoney-front.png";
 import emoneyBack from "./assets/images/catalogue-emoney-back.png";
@@ -95,17 +95,17 @@ const PRODUCTS = {
   "Keychain 3d": [
     {
       name: "Keychain 3D Maskot Putra",
-      price: "Rp 15.000",
+      price: "Rp 25.000",
       images: [{ src: keychain3dPutra, alt: "Maskot putra Asfera untuk Keychain 3D" }],
     },
     {
       name: "Keychain 3D Maskot Putri",
-      price: "Rp 15.000",
+      price: "Rp 25.000",
       images: [{ src: keychain3dPutri, alt: "Maskot putri Asfera untuk Keychain 3D" }],
     },
     {
       name: "Keychain 3D Bintang",
-      price: "Rp 15.000",
+      price: "Rp 25.000",
       images: [{ src: keychain3d, alt: "Keychain 3D berbentuk bintang Asfera" }],
     },
   ],
@@ -113,10 +113,10 @@ const PRODUCTS = {
     { name: "Keychain Maskot Cowo", price: "Rp 15.000", images: [{ src: keychain1, alt: "Keychain karakter pria Asfera" }] },
     { name: "Keychain Maskot Cewe", price: "Rp 15.000", images: [{ src: keychain2, alt: "Keychain karakter wanita Asfera" }] },
     { name: "Keychain Papan", price: "Rp 15.000", images: [{ src: keychain3, alt: "Keychain ilustrasi tiket Asfera 2027" }] },
-    { name: "Keychain Logo", price: "Rp 15.000", images: [{ src: keychain4, alt: "Keychain panji Asfera 2027" }] },
+    { name: "Keychain Tameng", price: "Rp 15.000", images: [{ src: keychain4, alt: "Keychain panji Asfera 2027" }] },
     { name: "Keychain Coin", price: "Rp 15.000", images: [{ src: keychain5, alt: "Keychain medali Asfera" }] },
     { name: "Keychain Biru", price: "Rp 15.000", images: [{ src: keychain6, alt: "Keychain logo Asfera berwarna biru" }] },
-    { name: "Keychain Tameng", price: "Rp 15.000", images: [{ src: keychain7, alt: "Keychain lambang burung Asfera berwarna emas" }] },
+    { name: "Keychain Logo", price: "Rp 15.000", images: [{ src: keychain7, alt: "Keychain lambang burung Asfera berwarna emas" }] },
   ],
   Kipas: [
     { name: "Kipas Asfera", price: "Rp 15.000", images: [{ src: fan, alt: "Kipas bergambar lambang dan logo Asfera" }] },
@@ -136,7 +136,7 @@ const PRODUCTS = {
   Sticker: [
     { name: "ASFERA Bulat", price: "Rp 5.000", images: [{ src: sticker1, alt: "Stiker lambang Asfera 2027 berwarna marun dan emas" }] },
     { name: "Sticker Pack ", price: "Rp 10.000", images: [{ src: sticker2, alt: "Set stiker tiket, kaset, logo, dan desain Asfera lainnya" }] },
-    { name: "ASFERA Tanggal", price: "Rp 10.000", images: [{ src: stickerTanggal, alt: "Stiker hijau ASYIFA PRESENT dengan tanggal 01/03/2027 dan logo ASFERA" }] },
+    { name: "ASFERA Tanggal", price: "Rp 5.000", images: [{ src: stickerTanggal, alt: "Stiker hijau ASYIFA PRESENT dengan tanggal 01/03/2027 dan logo ASFERA" }] },
     { name: "ASFERA/Yes-Retry", price: "Rp 5.000", images: [{ src: stickerYesRetry, alt: "Stiker biru bergaya jendela error bertuliskan ASFERA? YES RETRY" }] },
     { name: "ASFERA2K27", price: "Rp 5.000", images: [{ src: stickerAsfera2k27, alt: "Stiker biru bertuliskan #ASFERA2K27" }] },
     { name: "Logo", price: "Rp 5.000", images: [{ src: stickerLogo, alt: "Stiker logo ASFERA berwarna emas" }] },
@@ -145,11 +145,9 @@ const PRODUCTS = {
     { name: "Maroon String Bag", price: "Rp 70.000", images: [{ src: stringBag, alt: "String bag Asfera berwarna marun" }] },
   ],
   Totebag: [
-    { name: "Bloom Harmony Totebag Brown", price: "Rp 70.000", images: [{ src: totebag1, alt: "Totebag cokelat dengan ilustrasi warna-warni, tampak depan dan belakang" }] },
-    { name: "Cream Journey Totebag", price: "Rp 70.000", images: [{ src: totebag2, alt: "Totebag krem dan biru dengan desain Vol. 4 2027, tampak depan dan belakang" }] },
-    { name: "Navy Blue Journey Totebag", price: "Rp 70.000", images: [{ src: totebag3, alt: "Totebag biru navy dengan desain Vol. 4 2027, tampak depan dan belakang" }] },
-    { name: "Heritage Harmony Totebag", price: "Rp 70.000", images: [{ src: totebag4, alt: "Totebag krem dengan ilustrasi panel Asfera, tampak depan dan belakang" }] },
-    { name: "Bloom Harmony Totebag White", price: "Rp 70.000", images: [{ src: totebag5, alt: "Totebag krem dengan ilustrasi warna-warni, tampak depan dan belakang" }] },
+    { name: "Navy Blue Journey Totebag", price: "Rp 80.000", images: [{ src: totebag3, alt: "Totebag biru navy dengan desain Vol. 4 2027, tampak depan dan belakang" }] },
+    { name: "Heritage Harmony Totebag", price: "Rp 80.000", images: [{ src: totebag4, alt: "Totebag krem dengan ilustrasi panel Asfera, tampak depan dan belakang" }] },
+    { name: "Bloom Harmony Totebag White", price: "Rp 80.000", images: [{ src: totebag5, alt: "Totebag krem dengan ilustrasi warna-warni, tampak depan dan belakang" }] },
   ],
   "T-shirt": [
     { name: "Cream Minimalist", price: "Rp 140.000", images: [{ src: tshirt1, alt: "T-shirt desain Asfera 27 dan Fatum Odyssey, tampak depan dan belakang" }] },
@@ -173,7 +171,6 @@ const PRODUCTS = {
     { name: "Buku", price: "Rp 15.000", images: [{ src: jibbitz5, alt: "Jibbitz desain buku dan nanas" }] },
   ],
   Gelang: [
-    { name: "Green Fatum Bracelet", price: "Rp 25.000", images: [{ src: bracelet1, alt: "Gelang Narmory desain hijau Asfera" }] },
     { name: "Maroon Fatum Bracelet", price: "Rp 25.000", images: [{ src: bracelet2, alt: "Gelang Odyssey desain marun Asfera" }] },
     { name: "White Fatum Bracelet", price: "Rp 25.000", images: [{ src: bracelet3, alt: "Gelang Asfera desain putih" }] },
     { name: "Italian Bracelet", price: "Rp 45.000", imageVariant: "raised", images: [{ src: italianBracelet, alt: "Italian bracelet warna perak" }] },
@@ -198,7 +195,181 @@ const PRODUCTS = {
   ],
 };
 
-function ProductCard({ product, layout }) {
+function OrderModal({ product, onClose }) {
+  const firstInputRef = useRef(null);
+  const imageZoomTriggerRef = useRef(null);
+  const imageZoomCloseRef = useRef(null);
+  const [isImageZoomed, setIsImageZoomed] = useState(false);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    firstInputRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        if (isImageZoomed) {
+          setIsImageZoomed(false);
+        } else {
+          onClose();
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isImageZoomed, onClose]);
+
+  useEffect(() => {
+    if (!isImageZoomed) return undefined;
+    imageZoomCloseRef.current?.focus();
+    return () => imageZoomTriggerRef.current?.focus();
+  }, [isImageZoomed]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const message = [
+      "Halo, saya ingin pre-order merchandise ASFERA.",
+      "",
+      `Produk: ${product.name}`,
+      `Harga: ${product.price}`,
+      `Nama: ${formData.get("customerName")}`,
+      `No. Telp: ${formData.get("phone")}`,
+      `Alamat: ${formData.get("address")}`,
+      `Kode Pos: ${formData.get("postalCode")}`,
+    ].join("\n");
+    const whatsappUrl = `https://wa.me/628999991333?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  };
+
+  return (
+    <div
+      className="catalogue-modal-overlay"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <section
+        className="catalogue-order-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="catalogue-order-title"
+        aria-hidden={isImageZoomed}
+      >
+        <button
+          className="catalogue-modal-close"
+          type="button"
+          onClick={onClose}
+          aria-label="Tutup formulir pre-order"
+        >
+          &times;
+        </button>
+
+        <div className="catalogue-modal-product">
+          <div className="catalogue-modal-image">
+            <button
+              ref={imageZoomTriggerRef}
+              className="catalogue-modal-image-zoom"
+              type="button"
+              onClick={() => setIsImageZoomed(true)}
+              aria-label={`Perbesar gambar ${product.name}`}
+            >
+              <img src={product.images[0].src} alt={product.images[0].alt} />
+              <span>Perbesar gambar</span>
+            </button>
+          </div>
+          <span className="catalogue-product-label">Asfera Merchandise</span>
+          <h2 id="catalogue-order-title">{product.name}</h2>
+          <p>{product.price}</p>
+        </div>
+
+        <form className="catalogue-order-form" onSubmit={handleSubmit}>
+          <label>
+            Nama
+            <input
+              ref={firstInputRef}
+              type="text"
+              name="customerName"
+              autoComplete="name"
+              required
+            />
+          </label>
+          <label>
+            No. Telp
+            <input
+              type="tel"
+              name="phone"
+              autoComplete="tel"
+              inputMode="tel"
+              required
+            />
+          </label>
+          <label>
+            Alamat
+            <textarea
+              name="address"
+              autoComplete="street-address"
+              rows="3"
+              required
+            />
+          </label>
+          <label>
+            Kode Pos
+            <input
+              type="text"
+              name="postalCode"
+              autoComplete="postal-code"
+              inputMode="numeric"
+              required
+            />
+          </label>
+          <button className="catalogue-order-submit" type="submit">
+            Lanjut ke WhatsApp
+            <span aria-hidden="true">↗</span>
+          </button>
+        </form>
+      </section>
+      {isImageZoomed && (
+        <div
+          className="catalogue-image-zoom-overlay"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setIsImageZoomed(false);
+          }}
+        >
+          <div
+            className="catalogue-image-zoom-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Gambar ${product.name} diperbesar`}
+          >
+            <button
+              ref={imageZoomCloseRef}
+              className="catalogue-modal-close"
+              type="button"
+              onClick={() => setIsImageZoomed(false)}
+              aria-label="Tutup gambar yang diperbesar"
+            >
+              &times;
+            </button>
+            <img src={product.images[0].src} alt={product.images[0].alt} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProductCard({ product, layout, onPreorder }) {
   return (
     <article className={`catalogue-product catalogue-product--${layout}`}>
       <div
@@ -221,8 +392,7 @@ function ProductCard({ product, layout }) {
           <button
             className="catalogue-preorder"
             type="button"
-            disabled
-            title="Google Form pemesanan belum tersedia"
+            onClick={() => onPreorder(product)}
           >
             <span className="catalogue-preorder-dot" aria-hidden="true" />
             Pre-Order
@@ -236,6 +406,8 @@ function ProductCard({ product, layout }) {
 
 export default function Catalogue() {
   const [category, setCategory] = useState("E-money");
+  const [orderProduct, setOrderProduct] = useState(null);
+  const closeOrderModal = () => setOrderProduct(null);
 
   return (
     <div className="site-shell catalogue-page">
@@ -268,6 +440,7 @@ export default function Catalogue() {
                 <ProductCard
                   key={product.name}
                   product={product}
+                  onPreorder={setOrderProduct}
                   layout={
                     ["Gelang", "Jibbitz", "Keychain", "Keychain 3d", "Kipas", "Pin", "Sticky Note", "Sticker", "String Bag", "T-shirt", "Totebag", "Webbing"].includes(category)
                       ? "gallery"
@@ -281,6 +454,9 @@ export default function Catalogue() {
           )}
         </section>
       </main>
+      {orderProduct && (
+        <OrderModal product={orderProduct} onClose={closeOrderModal} />
+      )}
     </div>
   );
 }

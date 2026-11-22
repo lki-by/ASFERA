@@ -348,22 +348,97 @@ a {
   padding-bottom: clamp(80px, 12vw, 140px);
 }
 
+.trailer-carousel {
+  display: grid;
+  grid-template-columns: clamp(44px, 6vw, 64px) minmax(0, 900px) clamp(44px, 6vw, 64px);
+  gap: clamp(8px, 2vw, 20px);
+  align-items: center;
+  justify-content: center;
+  width: min(1048px, 100%);
+}
+
 .trailer-preview {
   position: relative;
-  display: grid;
-  place-items: center;
-  width: min(900px, 100%); /* sebelumnya 680px */
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 749 / 586;
+}
+
+.trailer-frame {
+  position: absolute;
+  inset: 0;
+  animation: artwork-float 7s ease-in-out 800ms infinite;
 }
 
 .trailer-artwork {
   position: absolute;
   inset: 0;
+  z-index: 2;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
+  pointer-events: none;
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.38));
-  animation: artwork-float 7s ease-in-out 800ms infinite;
+}
+
+.trailer-screen {
+  position: absolute;
+  z-index: 1;
+  top: 16.3%;
+  left: 9.5%;
+  width: 81%;
+  height: 71.5%;
+  overflow: hidden;
+  background: #0b0202;
+}
+
+.trailer-screen iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.trailer-arrow {
+  display: grid;
+  place-items: center;
+  width: clamp(42px, 5vw, 58px);
+  aspect-ratio: 1;
+  justify-self: center;
+  border: 1px solid #c68e4e;
+  border-radius: 50%;
+  background: #5a1808;
+  box-shadow: 0 5px 12px rgba(40, 8, 2, 0.3);
+  color: var(--parchment);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trailer-arrow svg {
+  width: 58%;
+  height: 58%;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.trailer-arrow:hover,
+.trailer-arrow:focus-visible,
+.trailer-arrow[aria-pressed="true"] {
+  transform: scale(1.08);
+  background: #6e2210;
+  box-shadow: 0 8px 16px rgba(40, 8, 2, 0.4), 0 0 14px rgba(246, 216, 164, 0.24);
+}
+
+.trailer-arrow:focus-visible {
+  outline: 2px solid #f6d8a4;
+  outline-offset: 4px;
+}
+
+.trailer-arrow:active {
+  transform: scale(0.96);
 }
 
 @keyframes artwork-float {
@@ -670,7 +745,7 @@ a {
   }
 
   .trailer-preview {
-    width: min(500px, 100%);
+    width: 100%;
   }
 
   .events-section {
@@ -950,8 +1025,32 @@ a {
 @media (min-width: 561px) and (max-width: 1020px) {
   .hero-logo { width: clamp(280px, 48vw, 400px); }
   .countdown { width: min(760px, 100%); }
-  .trailer-preview { width: min(720px, 100%); }
+  .trailer-carousel { grid-template-columns: clamp(42px, 5vw, 54px) minmax(0, 720px) clamp(42px, 5vw, 54px); }
   .events-corner { width: clamp(170px, 26vw, 260px); }
+}
+
+@media (max-width: 560px) {
+  .trailer-carousel {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 12px;
+  }
+
+  .trailer-preview {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .trailer-arrow--trailer {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: end;
+  }
+
+  .trailer-arrow--teaser {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+  }
 }
 
 @media (min-width: 1600px) {

@@ -12,7 +12,7 @@ const CATEGORIES = [
 const VIDEO_ID = "esXjFQCPIik";
 
 // Corner-nya sekarang dipasang di wrapper "showcase" (App.jsx), dipakai bareng Events.
-export default function Competitions({ onSeeMore }) {
+export default function Competitions() {
   return (
     <section
       id="competitions"
@@ -40,20 +40,19 @@ export default function Competitions({ onSeeMore }) {
 
       <div className="competition-cards">
         {CATEGORIES.map((cat, n) => (
-          <ScrollReveal as="article" className="competition-card" delay={n * 160} key={cat.key}>
+          <ScrollReveal
+            as="a"
+            className="competition-card"
+            delay={n * 160}
+            href={`#/competition/${cat.key}`}
+            aria-label={`Lihat Competition ${cat.label}`}
+            key={cat.key}
+          >
             <img src={eventCard} alt={`Competition ${cat.label} coming soon`} />
             {/* kiri = Putra, kanan = Putri */}
-            <a
-              className="see-more"
-              href={`#/competition/${cat.key}`}
-              onClick={(event) => {
-                event.preventDefault();
-                onSeeMore(cat.key);
-              }}
-              aria-label={`See More Competition ${cat.label}`}
-            >
+            <span className="see-more">
               See More
-            </a>
+            </span>
           </ScrollReveal>
         ))}
       </div>

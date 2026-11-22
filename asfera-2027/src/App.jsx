@@ -5,7 +5,6 @@ import emblem from "./assets/icons/logo-emblem.png";
 import topCornerOrnament from "./assets/images/corner-ornament-top.png";
 import countdownFrame from "./assets/images/countdown-frame.png";
 import trailerArtwork from "./assets/images/trailer-event.png";
-import trailerComingSoon from "./assets/images/trailer-coming-soon.png";
 import eventCard from "./assets/images/event-card.png";
 import eventCornerLeft from "./assets/images/event-corner-left.png";
 import eventCornerRight from "./assets/images/event-corner-right.png";
@@ -26,7 +25,7 @@ import "./App.css";
 
 const EVENT_DATE = new Date("2027-04-03T00:00:00+07:00");
 
-const LEFT_LINKS = ["Home", "About", "Events", "Competition"];
+const LEFT_LINKS = ["Home", "About", "Events", "Competitions"];
 const RIGHT_LINKS = ["FAQ", "Homestay", "Contact", "Catalogue"];
 
 function useCountdown(target) {
@@ -82,7 +81,7 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const link = (t) => (
     <a key={t} href={t === "Catalogue" ? "#/catalogue" : `#${t === "Competition" ? "competitions" : t.toLowerCase()}`} onClick={() => setOpen(false)}>
-      {t}
+      {t === "Catalogue" ? "Merchandise" : t}
     </a>
   );
   return (
@@ -155,17 +154,55 @@ function Home() {
 }
 
 function Trailer() {
+  const videos = [
+    { title: "Trailer ASFERA", id: "FeAsJXnI3Is" },
+    { title: "Teaser ASFERA", id: "kRlEn7PQpyc" },
+  ];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeVideo = videos[activeIndex];
+
   return (
     <section id="trailer" className="trailer-section" aria-labelledby="trailer-title">
-      <h2 id="trailer-title" className="sr-only">Trailer Asfera</h2>
-      <ScrollReveal variant="zoom" className="trailer-preview">
-        <img className="trailer-artwork" src={trailerArtwork} alt="" />
-        <img
-          className="trailer-coming-soon"
-          src={trailerComingSoon}
-          alt="Trailer Asfera coming soon"
-        />
-      </ScrollReveal>
+      <h2 id="trailer-title" className="sr-only">Video Trailer dan Teaser Asfera</h2>
+      <div className="trailer-carousel">
+        <button
+          type="button"
+          className="trailer-arrow trailer-arrow--trailer"
+          onClick={() => setActiveIndex((index) => (index - 1 + videos.length) % videos.length)}
+          aria-label="Tampilkan video sebelumnya"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
+
+        <ScrollReveal variant="zoom" className="trailer-preview">
+          <div className="trailer-frame">
+            <img className="trailer-artwork" src={trailerArtwork} alt="" />
+            <div className="trailer-screen" aria-live="polite">
+              <iframe
+                key={activeVideo.id}
+                src={`https://www.youtube-nocookie.com/embed/${activeVideo.id}`}
+                title={activeVideo.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <button
+          type="button"
+          className="trailer-arrow trailer-arrow--teaser"
+          onClick={() => setActiveIndex((index) => (index + 1) % videos.length)}
+          aria-label="Tampilkan video berikutnya"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
+      </div>
     </section>
   );
 }
@@ -194,7 +231,7 @@ function Events() {
   );
 }
 
-function Showcase({ onSeeMore }) {
+function Showcase() {
   return (
     <div className="showcase">
       <Dust />
@@ -203,7 +240,7 @@ function Showcase({ onSeeMore }) {
       <img className="events-corner events-corner-bl" src={eventCornerBottomLeft} alt="" />
       <img className="events-corner events-corner-br" src={eventCornerLeft} alt="" />
       <Events />
-      <Competitions onSeeMore={onSeeMore} />
+      <Competitions />
       <FAQ />
     </div>
   );
@@ -227,10 +264,6 @@ export default function App() {
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
-
-  const openCompetition = (gender) => {
-    window.location.hash = `#/competition/${gender}`;
-  };
 
   useEffect(() => {
     if (view || isTimeline || isCatalogue) {
@@ -262,7 +295,7 @@ export default function App() {
         <Home />
         <About />
         <Trailer />
-        <Showcase onSeeMore={openCompetition} />
+        <Showcase />
         <Sponsors />
         <Homestay />
         <Contact />

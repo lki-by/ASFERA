@@ -14,8 +14,8 @@ const FAQS = [
     intro: "Kolaborasi 4 kampus di bawah naungan Yayasan As-Syifa:",
     ordered: true,
     items: [
-      "Pondok Pesantren As-Syifa Jalancagak",
-      "Pondok Pesantren As-Syifa Wanareja",
+      " As-Syifa Jalancagak",
+      " As-Syifa Wanareja",
       "As-Syifa Sagalaherang",
       "As-Syifa Jalancagak 2",
     ],

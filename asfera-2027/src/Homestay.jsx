@@ -55,7 +55,7 @@ const HOMESTAY_FAQS = [
   {
     question: "Tata Cara Pendaftaran",
     answer: [
-      "Pendaftaran dibuka mulai 27 Maret sampai 10 April 2027.",
+      "Pendaftaran dibuka mulai 23 November 2026 - 1 Maret.",
       "Mengisi Google Formulir di situs web resmi Asfera.",
       "Konfirmasi pendaftaran dilakukan 5 hari sebelum kedatangan melalui:",
       "0852-2401-9012 (Admin Wanareja Putra)",
@@ -68,8 +68,8 @@ const HOMESTAY_FAQS = [
   {
     question: "Tata Cara Check In dan Check Out",
     answer: [
-      "Registrasi ulang dan check-in dibuka pada 26 Maret 2027.",
-      "Peserta mulai menginap pada tanggal 26 Maret 2027.",
+      "Registrasi ulang dan check-in dibuka pada 2 april 2027.",
+      "Peserta mulai menginap pada tanggal 2 april 2027.",
       "Prosedur check-out diselesaikan di meja registrasi login.",
     ],
   },
