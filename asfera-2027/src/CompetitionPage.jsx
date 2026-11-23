@@ -38,7 +38,11 @@ function CompetitionCard({ item }) {
       <img className="cc-frame" src={competitionCardFrame} alt="" />
       <div className="cc-content">
         <p className="cc-campus">{item.campus}</p>
-        <h3 className="cc-name">{item.name}</h3>
+        <h3 className="cc-name">
+          {item.name.split(/\s+/).map((word, index) => (
+            <span key={`${word}-${index}`}>{word}</span>
+          ))}
+        </h3>
         <div className="cc-actions">
           <Action href={item.registration} variant="fill">Registration</Action>
           <Action href={item.rulebook} variant="outline">Rulebook</Action>

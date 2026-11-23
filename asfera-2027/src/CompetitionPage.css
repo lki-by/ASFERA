@@ -119,9 +119,11 @@
 }
 .cc-campus { margin: clamp(8px, 1vw, 12px) 0 0; font-size: clamp(0.68rem, 1.1vw, 0.9rem); font-weight: 700; letter-spacing: 0.02em; }
 .cc-name {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   flex: 1;
-  place-items: center;
   margin: 0;
   font-size: clamp(0.9rem, 1.65vw, 1.4rem);
   font-weight: 400;

@@ -4,6 +4,7 @@ import homestayImage from "./assets/images/homestay.png";
 import homestayExpandedImage from "./assets/images/homestay-klik.png";
 import jalancagakPutraRulebook from "./assets/rulebooks/homestay-jalancagak-putra-2027.pdf";
 import putriRulebook from "./assets/rulebooks/homestay-putri-2027.pdf";
+import sagalaherangPutraRulebook from "./assets/rulebooks/homestay-sagalaherang-putra-2027.pdf";
 import "./Homestay.css";
 
 // 👉 Isi link pendaftaran & rulebook di sini (Google Form / Drive / PDF).
@@ -13,7 +14,7 @@ const HOMESTAYS = [
   { name: "Homestay Jalancagak Putri", place: "Jalancagak Subang", registration: "https://docs.google.com/forms/d/e/1FAIpQLSfd7o46Ci275Gkn25IbbNp4pWNcbMcwOwhpmgYdckkLwuLW0A/viewform", rulebook: putriRulebook },
   { name: "Homestay Wanareja Putra", place: "Wanareja Subang", registration: "", rulebook: "" },
   { name: "Homestay Wanareja Putri", place: "Wanareja Subang", registration: "https://docs.google.com/forms/d/e/1FAIpQLSf5YbN5ppeELuIZWJNizpooWxOEU2KIdSBtCu7YK06A320s8A/viewform", rulebook: putriRulebook },
-  { name: "Homestay Sagalaherang Putra", place: "Sagalaherang Subang", registration: "", rulebook: "" },
+  { name: "Homestay Sagalaherang Putra", place: "Sagalaherang Subang", registration: "https://docs.google.com/forms/d/e/1FAIpQLSfAAO04Ymf9_OHVApbNz0kGr7S-pFBnFZg8pgmlTBOvsPjjjA/viewform?usp=dialog", rulebook: sagalaherangPutraRulebook },
   { name: "Homestay Sagalaherang Putri", place: "Sagalaherang Subang", registration: "", rulebook: putriRulebook },
   {
     name: "Homestay Jalancagak 2",
@@ -48,13 +49,13 @@ const HOMESTAY_FAQS = [
       "Air minum (hubungi panitia untuk isi ulang jika habis).",
       "Jemuran handuk.",
       "Alat kebersihan.",
-      "Sewa kasur tambahan (Rp 5.000/hari).",
+      "Sewa kasur tambahan (Harga menyesuaikan rulebook masing-masing unit).",
     ],
   },
   {
     question: "Tata Cara Pendaftaran",
     answer: [
-      "Pendaftaran dibuka mulai 23 November 2026 - 1 Maret.",
+      "Pendaftaran dibuka mulai 27 November 2026 - 1 Maret 2027 (penutupan registrasi penginapan menyesuaikan rulebook penginapan masing-masing unit).",
       "Mengisi Google Formulir di situs web resmi Asfera.",
       "Konfirmasi pendaftaran dilakukan 5 hari sebelum kedatangan melalui:",
       "0852-2401-9012 (Admin Wanareja Putra)",

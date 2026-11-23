@@ -5,6 +5,7 @@ import emblem from "./assets/icons/logo-emblem.png";
 import topCornerOrnament from "./assets/images/corner-ornament-top.png";
 import countdownFrame from "./assets/images/countdown-frame.png";
 import trailerArtwork from "./assets/images/trailer-event.png";
+import trailerComingSoon from "./assets/images/trailer-coming-soon.png";
 import eventCard from "./assets/images/event-card.png";
 import eventCornerLeft from "./assets/images/event-corner-left.png";
 import eventCornerRight from "./assets/images/event-corner-right.png";
@@ -155,10 +156,10 @@ function Home() {
 
 function Trailer() {  
   const videos = [
-    { title: "Trailer ASFERA", id: "FeAsJXnI3Is" },
-    { title: "Teaser ASFERA", id: "kRlEn7PQpyc" },
+    { title: "Trailer ASFERA", id: "" },
+    { title: "Teaser ASFERA", id: "bSz89V4cNKQ" },
   ];
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const activeVideo = videos[activeIndex];
 
   return (
@@ -180,14 +181,22 @@ function Trailer() {
           <div className="trailer-frame">
             <img className="trailer-artwork" src={trailerArtwork} alt="" />
             <div className="trailer-screen" aria-live="polite">
-              <iframe
-                key={activeVideo.id}
-                src={`https://www.youtube-nocookie.com/embed/${activeVideo.id}`}
-                title={activeVideo.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
+              {activeVideo.id ? (
+                <iframe
+                  key={activeVideo.id}
+                  src={`https://www.youtube-nocookie.com/embed/${activeVideo.id}`}
+                  title={activeVideo.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              ) : (
+                <img
+                  className="trailer-coming-soon"
+                  src={trailerComingSoon}
+                  alt="Trailer ASFERA coming soon"
+                />
+              )}
             </div>
           </div>
         </ScrollReveal>

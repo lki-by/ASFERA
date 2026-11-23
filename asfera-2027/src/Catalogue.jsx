@@ -609,7 +609,7 @@ function ProductCard({ product, layout, onAddToCart, onZoom }) {
             onClick={() => onAddToCart(product)}
           >
             <span className="catalogue-preorder-dot" aria-hidden="true" />
-            Tambah ke Keranjang
+            Tambah ke Cart
             <span className="catalogue-preorder-arrow" aria-hidden="true">↗</span>
           </button>
         </div>
