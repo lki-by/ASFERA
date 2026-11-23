@@ -1,6 +1,8 @@
 // Data halaman Competition (diambil dari screenshot). Edit di sini kalau ada yang salah/berubah.
 // registration / rulebook = link (kosong = tombol belum aktif)
 
+import basketSmaJalancagakPutraRulebook from "./assets/rulebooks/basket-sma-jalancagak-putra.pdf";
+
 export const GENDERS = [
   { key: "putra", label: "Putra" },
   { key: "putri", label: "Putri" },
@@ -47,7 +49,7 @@ export const COMPETITIONS = {
       c(S, "English Speech"),
     ],
     sma: [
-      c(J, "Basket"), c(J2, "LOBB"), c(J, "Futsal"),
+      c(J, "Basket", "https://docs.google.com/forms/d/e/1FAIpQLScdO8hvO2-QjXGYWVJ1EsMx9OYLSYOoRlQITEdE-oX8J1P5uw/viewform", basketSmaJalancagakPutraRulebook), c(J2, "LOBB"), c(J, "Futsal"),
       c(J, "Panahan"), c(J, "LDBI"), c(J, "Board Art"),
       c(W, "Sepak Bola"), c(W, "Pencak Silat"), c(W, "CCIQ"),
       c(W, "MSQ"), c(S, "Volleyball"), c(S, "Badminton"),

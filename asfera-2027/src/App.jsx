@@ -153,7 +153,7 @@ function Home() {
   );
 }
 
-function Trailer() {
+function Trailer() {  
   const videos = [
     { title: "Trailer ASFERA", id: "FeAsJXnI3Is" },
     { title: "Teaser ASFERA", id: "kRlEn7PQpyc" },

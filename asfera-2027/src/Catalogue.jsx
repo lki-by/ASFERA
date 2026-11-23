@@ -195,11 +195,249 @@ const PRODUCTS = {
   ],
 };
 
-function OrderModal({ product, onClose }) {
+const parsePrice = (price) => Number(price.replace(/[^\d]/g, ""));
+const formatPrice = (price) => `Rp ${price.toLocaleString("id-ID")}`;
+
+function CartDrawer({ items, onClose, onUpdateQuantity, onRemove, onPreorder }) {
+  const itemCount = items.reduce((total, item) => total + item.quantity, 0);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  const total = items.reduce(
+    (sum, item) => sum + parsePrice(item.product.price) * item.quantity,
+    0,
+  );
+
+  return (
+    <div
+      className="catalogue-cart-overlay"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <aside
+        className="catalogue-cart-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="catalogue-cart-title"
+      >
+        <div className="catalogue-cart-header">
+          <div>
+            <span className="catalogue-product-label">Asfera Merchandise</span>
+            <h2 id="catalogue-cart-title">Keranjang Kamu</h2>
+            <p>{itemCount} produk dipilih</p>
+          </div>
+          <button
+            className="catalogue-modal-close"
+            type="button"
+            onClick={onClose}
+            aria-label="Tutup keranjang"
+          >
+            &times;
+          </button>
+        </div>
+
+        {items.length ? (
+          <>
+            <div className="catalogue-cart-items">
+              {items.map(({ id, product, quantity }) => (
+                <article className="catalogue-cart-item" key={id}>
+                  <img src={product.images[0].src} alt={product.images[0].alt} />
+                  <div className="catalogue-cart-item-copy">
+                    <span>{product.category}</span>
+                    <h3>{product.name}</h3>
+                    <strong>{product.price}</strong>
+                    <div className="catalogue-cart-item-controls">
+                      <div className="catalogue-quantity-control" aria-label={`Jumlah ${product.name}`}>
+                        <button
+                          type="button"
+                          onClick={() => onUpdateQuantity(id, quantity - 1)}
+                          aria-label={`Kurangi jumlah ${product.name}`}
+                        >
+                          −
+                        </button>
+                        <span aria-live="polite">{quantity}</span>
+                        <button
+                          type="button"
+                          onClick={() => onUpdateQuantity(id, quantity + 1)}
+                          aria-label={`Tambah jumlah ${product.name}`}
+                        >
+                          +
+                        </button>
+                      </div>
+                      <button
+                        className="catalogue-cart-remove"
+                        type="button"
+                        onClick={() => onRemove(id)}
+                      >
+                        Hapus
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="catalogue-cart-footer">
+              <p>
+                <span>Estimasi total</span>
+                <strong>{formatPrice(total)}</strong>
+              </p>
+              <button
+                className="catalogue-order-submit"
+                type="button"
+                onClick={onPreorder}
+              >
+                Pre-Order Sekarang
+                <span aria-hidden="true">→</span>
+              </button>
+              <small>Total akhir akan dikonfirmasi melalui WhatsApp.</small>
+            </div>
+          </>
+        ) : (
+          <div className="catalogue-cart-empty">
+            <span aria-hidden="true">✦</span>
+            <h3>Keranjang masih kosong</h3>
+            <p>Pilih merchandise favoritmu untuk mulai pre-order.</p>
+            <button type="button" onClick={onClose}>Jelajahi Merchandise</button>
+          </div>
+        )}
+      </aside>
+    </div>
+  );
+}
+
+function AddToCartModal({ product, onClose, onConfirm }) {
+  const confirmButtonRef = useRef(null);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    confirmButtonRef.current?.focus();
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="catalogue-confirm-overlay"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <section
+        className="catalogue-confirm-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="catalogue-confirm-title"
+      >
+        <button
+          className="catalogue-modal-close"
+          type="button"
+          onClick={onClose}
+          aria-label="Tutup konfirmasi"
+        >
+          &times;
+        </button>
+        <div className="catalogue-confirm-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.4L22 8H6" />
+            <circle cx="10" cy="21" r="1" />
+            <circle cx="18" cy="21" r="1" />
+          </svg>
+        </div>
+        <span className="catalogue-product-label">{product.category}</span>
+        <h2 id="catalogue-confirm-title">Tambahkan ke keranjang?</h2>
+        <div className="catalogue-confirm-product">
+          <img src={product.images[0].src} alt={product.images[0].alt} />
+          <div>
+            <strong>{product.name}</strong>
+            <span>{product.price}</span>
+          </div>
+        </div>
+        <div className="catalogue-confirm-actions">
+          <button
+            className="catalogue-confirm-cancel"
+            type="button"
+            onClick={onClose}
+          >
+            Batal
+          </button>
+          <button
+            ref={confirmButtonRef}
+            className="catalogue-order-submit"
+            type="button"
+            onClick={onConfirm}
+          >
+            Ya, Tambahkan
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ImageZoom({ image, onClose }) {
+  const closeButtonRef = useRef(null);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="catalogue-image-zoom-overlay"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <div
+        className="catalogue-image-zoom-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Gambar ${image.alt} diperbesar`}
+      >
+        <button
+          ref={closeButtonRef}
+          className="catalogue-modal-close"
+          type="button"
+          onClick={onClose}
+          aria-label="Tutup gambar yang diperbesar"
+        >
+          &times;
+        </button>
+        <img src={image.src} alt={image.alt} />
+      </div>
+    </div>
+  );
+}
+
+function OrderModal({ items, onClose }) {
+  const product = items[0].product;
   const firstInputRef = useRef(null);
-  const imageZoomTriggerRef = useRef(null);
-  const imageZoomCloseRef = useRef(null);
-  const [isImageZoomed, setIsImageZoomed] = useState(false);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -213,26 +451,14 @@ function OrderModal({ product, onClose }) {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        if (isImageZoomed) {
-          setIsImageZoomed(false);
-        } else {
-          onClose();
-        }
-      }
+      if (event.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isImageZoomed, onClose]);
-
-  useEffect(() => {
-    if (!isImageZoomed) return undefined;
-    imageZoomCloseRef.current?.focus();
-    return () => imageZoomTriggerRef.current?.focus();
-  }, [isImageZoomed]);
+  }, [onClose]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -240,8 +466,12 @@ function OrderModal({ product, onClose }) {
     const message = [
       "Halo, saya ingin pre-order merchandise ASFERA.",
       "",
-      `Produk: ${product.name}`,
-      `Harga: ${product.price}`,
+      "Pesanan:",
+      ...items.map(({ product: item, quantity }) => (
+        `- ${item.name} (${item.category}) x${quantity} — ${item.price} / pcs = ${formatPrice(parsePrice(item.price) * quantity)}`
+      )),
+      `Estimasi total: ${formatPrice(items.reduce((sum, item) => sum + parsePrice(item.product.price) * item.quantity, 0))}`,
+      "",
       `Nama: ${formData.get("customerName")}`,
       `No. Telp: ${formData.get("phone")}`,
       `Alamat: ${formData.get("address")}`,
@@ -264,7 +494,6 @@ function OrderModal({ product, onClose }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="catalogue-order-title"
-        aria-hidden={isImageZoomed}
       >
         <button
           className="catalogue-modal-close"
@@ -277,20 +506,22 @@ function OrderModal({ product, onClose }) {
 
         <div className="catalogue-modal-product">
           <div className="catalogue-modal-image">
-            <button
-              ref={imageZoomTriggerRef}
-              className="catalogue-modal-image-zoom"
-              type="button"
-              onClick={() => setIsImageZoomed(true)}
-              aria-label={`Perbesar gambar ${product.name}`}
-            >
-              <img src={product.images[0].src} alt={product.images[0].alt} />
-              <span>Perbesar gambar</span>
-            </button>
+            <img src={product.images[0].src} alt={product.images[0].alt} />
           </div>
           <span className="catalogue-product-label">Asfera Merchandise</span>
-          <h2 id="catalogue-order-title">{product.name}</h2>
-          <p>{product.price}</p>
+          <h2 id="catalogue-order-title">Detail Pre-Order</h2>
+          <div className="catalogue-order-summary">
+            {items.map(({ id, product: item, quantity }) => (
+              <p key={id}>
+                <span>{item.name} × {quantity}</span>
+                <strong>{formatPrice(parsePrice(item.price) * quantity)}</strong>
+              </p>
+            ))}
+            <p className="catalogue-order-total">
+              <span>Estimasi total</span>
+              <strong>{formatPrice(items.reduce((sum, item) => sum + parsePrice(item.product.price) * item.quantity, 0))}</strong>
+            </p>
+          </div>
         </div>
 
         <form className="catalogue-order-form" onSubmit={handleSubmit}>
@@ -339,44 +570,27 @@ function OrderModal({ product, onClose }) {
           </button>
         </form>
       </section>
-      {isImageZoomed && (
-        <div
-          className="catalogue-image-zoom-overlay"
-          onClick={(event) => {
-            if (event.target === event.currentTarget) setIsImageZoomed(false);
-          }}
-        >
-          <div
-            className="catalogue-image-zoom-dialog"
-            role="dialog"
-            aria-modal="true"
-            aria-label={`Gambar ${product.name} diperbesar`}
-          >
-            <button
-              ref={imageZoomCloseRef}
-              className="catalogue-modal-close"
-              type="button"
-              onClick={() => setIsImageZoomed(false)}
-              aria-label="Tutup gambar yang diperbesar"
-            >
-              &times;
-            </button>
-            <img src={product.images[0].src} alt={product.images[0].alt} />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
 
-function ProductCard({ product, layout, onPreorder }) {
+function ProductCard({ product, layout, onAddToCart, onZoom }) {
   return (
     <article className={`catalogue-product catalogue-product--${layout}`}>
       <div
         className={`catalogue-product-images${product.images.length === 1 ? " catalogue-product-images--single" : ""}${product.imageVariant ? ` catalogue-product-images--${product.imageVariant}` : ""}`}
       >
         {product.images.map((image) => (
-          <img key={image.src} src={image.src} alt={image.alt} />
+          <button
+            className="catalogue-product-image-zoom"
+            key={image.src}
+            type="button"
+            onClick={() => onZoom(image)}
+            aria-label={`Perbesar gambar ${image.alt}`}
+          >
+            <img src={image.src} alt="" />
+            <span aria-hidden="true">Perbesar</span>
+          </button>
         ))}
       </div>
       <div className="catalogue-product-info">
@@ -392,10 +606,10 @@ function ProductCard({ product, layout, onPreorder }) {
           <button
             className="catalogue-preorder"
             type="button"
-            onClick={() => onPreorder(product)}
+            onClick={() => onAddToCart(product)}
           >
             <span className="catalogue-preorder-dot" aria-hidden="true" />
-            Pre-Order
+            Tambah ke Keranjang
             <span className="catalogue-preorder-arrow" aria-hidden="true">↗</span>
           </button>
         </div>
@@ -406,12 +620,55 @@ function ProductCard({ product, layout, onPreorder }) {
 
 export default function Catalogue() {
   const [category, setCategory] = useState("E-money");
-  const [orderProduct, setOrderProduct] = useState(null);
-  const closeOrderModal = () => setOrderProduct(null);
+  const [cart, setCart] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
+  const [zoomedImage, setZoomedImage] = useState(null);
+  const [pendingProduct, setPendingProduct] = useState(null);
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const addToCart = (product) => {
+    const id = `${product.category}:${product.name}`;
+    setCart((items) => {
+      const existing = items.find((item) => item.id === id);
+      if (existing) {
+        return items.map((item) => (
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        ));
+      }
+      return [...items, { id, product, quantity: 1 }];
+    });
+    setPendingProduct(null);
+  };
+  const confirmAddToCart = (product) => {
+    setPendingProduct({ ...product, category });
+  };
+  const updateQuantity = (id, quantity) => {
+    if (quantity < 1) {
+      setCart((items) => items.filter((item) => item.id !== id));
+      return;
+    }
+    setCart((items) => items.map((item) => (
+      item.id === id ? { ...item, quantity } : item
+    )));
+  };
 
   return (
     <div className="site-shell catalogue-page">
       <BackButton href="#home" label="Kembali ke halaman utama" />
+      <button
+        className="catalogue-cart-trigger"
+        type="button"
+        onClick={() => setIsCartOpen(true)}
+        aria-label={`Buka keranjang, ${cartCount} produk`}
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.4L22 8H6" />
+          <circle cx="10" cy="21" r="1" />
+          <circle cx="18" cy="21" r="1" />
+        </svg>
+        <span>Cart</span>
+        <strong>{cartCount}</strong>
+      </button>
       <main className="catalogue-main">
         <h1 className="catalogue-heading">
           <span className="catalogue-heading-crop">
@@ -440,7 +697,8 @@ export default function Catalogue() {
                 <ProductCard
                   key={product.name}
                   product={product}
-                  onPreorder={setOrderProduct}
+                  onAddToCart={confirmAddToCart}
+                  onZoom={setZoomedImage}
                   layout={
                     ["Gelang", "Jibbitz", "Keychain", "Keychain 3d", "Kipas", "Pin", "Sticky Note", "Sticker", "String Bag", "T-shirt", "Totebag", "Webbing"].includes(category)
                       ? "gallery"
@@ -454,8 +712,36 @@ export default function Catalogue() {
           )}
         </section>
       </main>
-      {orderProduct && (
-        <OrderModal product={orderProduct} onClose={closeOrderModal} />
+      {isCartOpen && (
+        <CartDrawer
+          items={cart}
+          onClose={() => setIsCartOpen(false)}
+          onUpdateQuantity={updateQuantity}
+          onRemove={(id) => setCart((items) => items.filter((item) => item.id !== id))}
+          onPreorder={() => {
+            setIsCartOpen(false);
+            setIsOrderOpen(true);
+          }}
+        />
+      )}
+      {isOrderOpen && (
+        <OrderModal
+          items={cart}
+          onClose={() => setIsOrderOpen(false)}
+        />
+      )}
+      {zoomedImage && (
+        <ImageZoom
+          image={zoomedImage}
+          onClose={() => setZoomedImage(null)}
+        />
+      )}
+      {pendingProduct && (
+        <AddToCartModal
+          product={pendingProduct}
+          onClose={() => setPendingProduct(null)}
+          onConfirm={() => addToCart(pendingProduct)}
+        />
       )}
     </div>
   );

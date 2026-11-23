@@ -5,9 +5,9 @@ import timelineTitle from "./assets/images/timeline-title.png";
 import "./TimelinePage.css";
 
 const events = [
-  { date: "23 November 2026", title: "Open Registrasi Peserta" },
+  { date: "27 November 2026", title: "Open Registrasi Peserta" },
   { date: "4 Januari 2027", title: "Dimulai Rangkaian Kegiatan Pre-event" },
-  { date: "21 Februari 2027", title: "Close Registrasi Peserta" },
+  { date: "25 Februari 2027", title: "Close Registrasi Peserta" },
   { date: "1 Maret - 27 Maret 2027", title: "Rangkaian Technical Meeting" },
   { date: "3 April 2027", title: "Grand Opening As-Syifa Festival Raya 2027" },
   { date: "17 April 2027", title: "Closing Ceremony As-Syifa Festival Raya 2027" },
