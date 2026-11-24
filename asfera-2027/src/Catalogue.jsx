@@ -148,6 +148,7 @@ const PRODUCTS = {
     { name: "Navy Blue Journey Totebag", price: "Rp 80.000", images: [{ src: totebag3, alt: "Totebag biru navy dengan desain Vol. 4 2027, tampak depan dan belakang" }] },
     { name: "Heritage Harmony Totebag", price: "Rp 80.000", images: [{ src: totebag4, alt: "Totebag krem dengan ilustrasi panel Asfera, tampak depan dan belakang" }] },
     { name: "Bloom Harmony Totebag White", price: "Rp 80.000", images: [{ src: totebag5, alt: "Totebag krem dengan ilustrasi warna-warni, tampak depan dan belakang" }] },
+    { name: "Cream Journey Totebag", price: "Rp 80.000", images: [{ src: totebag2, alt: "Totebag krem dengan desain minimalis Asfera, tampak depan dan belakang" }] },
   ],
   "T-shirt": [
     { name: "Cream Minimalist", price: "Rp 140.000", images: [{ src: tshirt1, alt: "T-shirt desain Asfera 27 dan Fatum Odyssey, tampak depan dan belakang" }] },
@@ -246,12 +247,13 @@ function CartDrawer({ items, onClose, onUpdateQuantity, onRemove, onPreorder }) 
         {items.length ? (
           <>
             <div className="catalogue-cart-items">
-              {items.map(({ id, product, quantity }) => (
+              {items.map(({ id, product, quantity, size }) => (
                 <article className="catalogue-cart-item" key={id}>
                   <img src={product.images[0].src} alt={product.images[0].alt} />
                   <div className="catalogue-cart-item-copy">
                     <span>{product.category}</span>
                     <h3>{product.name}</h3>
+                    {size && <p className="catalogue-cart-size">Ukuran: {size}</p>}
                     <strong>{product.price}</strong>
                     <div className="catalogue-cart-item-controls">
                       <div className="catalogue-quantity-control" aria-label={`Jumlah ${product.name}`}>
@@ -314,6 +316,11 @@ function CartDrawer({ items, onClose, onUpdateQuantity, onRemove, onPreorder }) 
 
 function AddToCartModal({ product, onClose, onConfirm }) {
   const confirmButtonRef = useRef(null);
+  const [size, setSize] = useState("");
+  const [customSize, setCustomSize] = useState("");
+  const needsSize = product.category === "T-shirt";
+  const isSizeValid = size !== "" && (size !== "Custom" || customSize.trim() !== "");
+  const selectedSize = size === "Custom" ? customSize.trim() : size;
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -367,6 +374,37 @@ function AddToCartModal({ product, onClose, onConfirm }) {
             <span>{product.price}</span>
           </div>
         </div>
+        {needsSize && (
+          <label className="catalogue-confirm-size">
+            Pilih Ukuran
+            <select
+              value={size}
+              onChange={(event) => {
+                setSize(event.target.value);
+                setCustomSize("");
+              }}
+              required
+            >
+              <option value="" disabled>Pilih ukuran</option>
+              {["S", "M", "L", "XL", "XXL"].map((option) => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+              <option value="Custom">Custom</option>
+            </select>
+          </label>
+        )}
+        {needsSize && size === "Custom" && (
+          <label className="catalogue-confirm-size">
+            Ukuran Custom
+            <input
+              type="text"
+              value={customSize}
+              onChange={(event) => setCustomSize(event.target.value)}
+              placeholder="Contoh: XXXL"
+              required
+            />
+          </label>
+        )}
         <div className="catalogue-confirm-actions">
           <button
             className="catalogue-confirm-cancel"
@@ -379,7 +417,8 @@ function AddToCartModal({ product, onClose, onConfirm }) {
             ref={confirmButtonRef}
             className="catalogue-order-submit"
             type="button"
-            onClick={onConfirm}
+            onClick={() => needsSize && !isSizeValid ? undefined : onConfirm(needsSize ? selectedSize : "")}
+            disabled={needsSize && !isSizeValid}
           >
             Ya, Tambahkan
           </button>
@@ -467,8 +506,8 @@ function OrderModal({ items, onClose }) {
       "Halo, saya ingin pre-order merchandise ASFERA.",
       "",
       "Pesanan:",
-      ...items.map(({ product: item, quantity }) => (
-        `- ${item.name} (${item.category}) x${quantity} — ${item.price} / pcs = ${formatPrice(parsePrice(item.price) * quantity)}`
+      ...items.map(({ product: item, quantity, size }) => (
+        `- ${item.name} (${item.category}${size ? `, Ukuran ${size}` : ""}) x${quantity} — ${item.price} / pcs = ${formatPrice(parsePrice(item.price) * quantity)}`
       )),
       `Estimasi total: ${formatPrice(items.reduce((sum, item) => sum + parsePrice(item.product.price) * item.quantity, 0))}`,
       "",
@@ -477,7 +516,7 @@ function OrderModal({ items, onClose }) {
       `Alamat: ${formData.get("address")}`,
       `Kode Pos: ${formData.get("postalCode")}`,
     ].join("\n");
-    const whatsappUrl = `https://wa.me/628999991333?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/6281993726420?text=${encodeURIComponent(message)}`;
 
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
@@ -511,9 +550,9 @@ function OrderModal({ items, onClose }) {
           <span className="catalogue-product-label">Asfera Merchandise</span>
           <h2 id="catalogue-order-title">Detail Pre-Order</h2>
           <div className="catalogue-order-summary">
-            {items.map(({ id, product: item, quantity }) => (
+            {items.map(({ id, product: item, quantity, size }) => (
               <p key={id}>
-                <span>{item.name} × {quantity}</span>
+                <span>{item.name}{size ? ` (${size})` : ""} × {quantity}</span>
                 <strong>{formatPrice(parsePrice(item.price) * quantity)}</strong>
               </p>
             ))}
@@ -626,8 +665,8 @@ export default function Catalogue() {
   const [zoomedImage, setZoomedImage] = useState(null);
   const [pendingProduct, setPendingProduct] = useState(null);
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-  const addToCart = (product) => {
-    const id = `${product.category}:${product.name}`;
+  const addToCart = (product, size = "") => {
+    const id = `${product.category}:${product.name}${size ? `:${size}` : ""}`;
     setCart((items) => {
       const existing = items.find((item) => item.id === id);
       if (existing) {
@@ -635,7 +674,7 @@ export default function Catalogue() {
           item.id === id ? { ...item, quantity: item.quantity + 1 } : item
         ));
       }
-      return [...items, { id, product, quantity: 1 }];
+      return [...items, { id, product, quantity: 1, size }];
     });
     setPendingProduct(null);
   };
@@ -740,7 +779,7 @@ export default function Catalogue() {
         <AddToCartModal
           product={pendingProduct}
           onClose={() => setPendingProduct(null)}
-          onConfirm={() => addToCart(pendingProduct)}
+          onConfirm={(size) => addToCart(pendingProduct, size)}
         />
       )}
     </div>

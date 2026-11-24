@@ -275,13 +275,17 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (view || isTimeline || isCatalogue) {
-      window.scrollTo(0, 0);
-    } else if (window.location.hash === "#competitions") {
-      document.getElementById("competitions")?.scrollIntoView();
-    } else if (window.location.hash === "#home") {
-      document.getElementById("home")?.scrollIntoView();
-    }
+    const frame = window.requestAnimationFrame(() => {
+      if (view || isTimeline || isCatalogue) {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      } else if (window.location.hash === "#competitions") {
+        document.getElementById("competitions")?.scrollIntoView({ block: "start", behavior: "auto" });
+      } else if (window.location.hash === "#home") {
+        document.getElementById("home")?.scrollIntoView({ block: "start", behavior: "auto" });
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, [view, isTimeline, isCatalogue]);
 
   if (isCatalogue) {

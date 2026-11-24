@@ -2,6 +2,7 @@
 .events-section.competitions-section {
   padding-top: clamp(20px, 3vw, 40px);
   padding-bottom: clamp(40px, 5vw, 64px);
+  scroll-margin-top: calc(var(--nav-height) + 24px);
 }
 
 /* ---- Video di dalam bingkai ---- */

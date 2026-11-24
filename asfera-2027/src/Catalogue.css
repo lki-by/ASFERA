@@ -1276,6 +1276,54 @@
   font-weight: 700;
 }
 
+.catalogue-confirm-size {
+  display: grid;
+  gap: 7px;
+  margin-top: 16px;
+  color: #f1d6a5;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.catalogue-confirm-size select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid rgba(232, 196, 143, 0.45);
+  border-radius: 10px;
+  background: rgba(15, 2, 2, 0.65);
+  color: #fff0d6;
+  font: inherit;
+}
+
+.catalogue-confirm-size input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid rgba(232, 196, 143, 0.45);
+  border-radius: 10px;
+  background: rgba(15, 2, 2, 0.65);
+  color: #fff0d6;
+  font: inherit;
+}
+
+.catalogue-confirm-size select:focus,
+.catalogue-confirm-size input:focus {
+  border-color: #f5d19b;
+  outline: 2px solid rgba(245, 209, 155, 0.22);
+}
+
+.catalogue-confirm-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.catalogue-cart-size {
+  margin: 3px 0 5px;
+  color: #ffe4b2;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .catalogue-confirm-actions {
   display: grid;
   grid-template-columns: 1fr 1.35fr;

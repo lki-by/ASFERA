@@ -3,8 +3,7 @@
 
 import basketSmaJalancagakPutraRulebook from "./assets/rulebooks/basket-sma-jalancagak-putra.pdf";
 import basketSmpJalancagakPutraRulebook from "./assets/rulebooks/basket-smp-jalancagak-putra.pdf";
-import basketSmaJalancagakPutriRulebook from "./assets/rulebooks/basket-sma-jalancagak-putri.pdf";
-import basketSmpJalancagakPutriRulebook from "./assets/rulebooks/basket-smp-jalancagak-putri.pdf";
+import daiSdSagalaherangPutraRulebook from "./assets/rulebooks/dai-sd-sagalaherang-putra.pdf";
 import badmintonSmaSagalaherangPutraRulebook from "./assets/rulebooks/badminton-sma-sagalaherang-putra.pdf";
 import badmintonSmaSagalaherangPutriRulebook from "./assets/rulebooks/badminton-sma-sagalaherang-putri.pdf";
 import badmintonSmpSagalaherangPutriRulebook from "./assets/rulebooks/badminton-smp-sagalaherang-putri.pdf";
@@ -18,11 +17,22 @@ import hadrohSmaSagalaherangPutraRulebook from "./assets/rulebooks/hadroh-sma-sa
 import khitobahSmaSagalaherangPutriRulebook from "./assets/rulebooks/khitobah-sma-sagalaherang-putri.pdf";
 import khitobahSmpSagalaherangPutriRulebook from "./assets/rulebooks/khitobah-smp-sagalaherang-putri.pdf";
 import lccSmpSagalaherangPutriRulebook from "./assets/rulebooks/lcc-smp-sagalaherang-putri.pdf";
+import lccPaiSdSagalaherangPutraRulebook from "./assets/rulebooks/lcc-pai-sd-sagalaherang-putra.pdf";
 import lkbbtSmpWanarejaPutriRulebook from "./assets/rulebooks/lkbbt-smp-wanareja-putri.pdf";
 import llaiSmpSagalaherangPutriRulebook from "./assets/rulebooks/llai-smp-sagalaherang-putri.pdf";
 import mhqSmaSagalaherangPutriRulebook from "./assets/rulebooks/mhq-sma-sagalaherang-putri.pdf";
 import mhqSmpSagalaherangPutriRulebook from "./assets/rulebooks/mhq-smp-sagalaherang-putri.pdf";
 import mhqSmpSmaSagalaherangPutraRulebook from "./assets/rulebooks/mhq-smp-sma-sagalaherang-putra.pdf";
+import mhqSdSagalaherangPutraRulebook from "./assets/rulebooks/mhq-sd-sagalaherang-putra.pdf";
+import menggambarSdSagalaherangPutraRulebook from "./assets/rulebooks/menggambar-sd-sagalaherang-putra.pdf";
+import menggambarSdJalancagakPutriRulebook from "./assets/rulebooks/menggambar-sd-jalancagak-putri.pdf";
+import mewarnaiTkJalancagakPutriRulebook from "./assets/rulebooks/mewarnai-tk-jalancagak-putri.pdf";
+import nasyidSdSagalaherangPutraRulebook from "./assets/rulebooks/nasyid-sd-sagalaherang-putra.pdf";
+import olimpiadeIpasSdJalancagakPutriRulebook from "./assets/rulebooks/olimpiade-ipas-sd-jalancagak-putri.pdf";
+import puisiSdJalancagakPutriRulebook from "./assets/rulebooks/puisi-sd-jalancagak-putri.pdf";
+import sainsPlannerSdJalancagakPutriRulebook from "./assets/rulebooks/sains-planner-sd-jalancagak-putri.pdf";
+import speechSdJalancagakPutriRulebook from "./assets/rulebooks/speech-sd-jalancagak-putri.pdf";
+import spellingBeeSdJalancagakPutriRulebook from "./assets/rulebooks/spelling-bee-sd-jalancagak-putri.pdf";
 import mtqSmaSagalaherangPutraRulebook from "./assets/rulebooks/mtq-sma-sagalaherang-putra.pdf";
 import mtqSmpSagalaherangPutraRulebook from "./assets/rulebooks/mtq-smp-sagalaherang-putra.pdf";
 import olimpiadeIpsSmpSagalaherangPutraRulebook from "./assets/rulebooks/olimpiade-ips-smp-sagalaherang-putra.pdf";
@@ -83,19 +93,24 @@ export const COMPETITIONS = {
     tk: [c(J, "Menyanyi"), c(J, "Mewarnai"), c(W, "Mewarnai"), c(S, "Mewarnai")],
     sd: [
       c(J, "Basket"), c(J, "Futsal"), c(W, "Futsal"),
-      c(W, "Tenis Meja"), c(W, "Pencak Silat"), c(S, "MHQ"),
-      c(J, "Da'i Cilik"), c(S, "Nasyid"), c(J, "COC"),
+      c(W, "Tenis Meja"), c(W, "Pencak Silat"),
+      c(S, "Da'i Cilik", "", daiSdSagalaherangPutraRulebook),
+      c(S, "Nasyid", "", nasyidSdSagalaherangPutraRulebook),
+      c(S, "LCC PAI", "", lccPaiSdSagalaherangPutraRulebook),
+      c(S, "Menggambar", "", menggambarSdSagalaherangPutraRulebook),
+      c(S, "MHQ", "", mhqSdSagalaherangPutraRulebook),
+      c(J, "COC"),
       c(J, "Bercerita Islami"), c(J, "Catur"), c(W, "Catur"),
       c(J, "Adzan"), c(J, "Math Arena"), c(J, "English Olympiade"),
       c(W, "Lari Sprint 60m"), c(J2, "Pramuka Jelajah"), c(J2, "Senam Kreasi"),
       c(J2, "Pantomim"),
     ],
     smp: [
-      c(J, "Basket", "", basketSmpJalancagakPutraRulebook), c(J2, "LOBB"), c(J, "Futsal", "", futsalSmpJalancagakPutraRulebook),
-      c(J, "Panahan", "", panahanJalancagakPutraRulebook), c(J, "LDBI"), c(J, "Board Art"),
+      c(J, "Basket", "", basketSmpJalancagakPutraRulebook), c(J, "LOBB", "", lobbSmaJalancagakPutraRulebook), c(J, "Futsal", "", futsalSmpJalancagakPutraRulebook),
+      c(J, "Panahan", "", panahanJalancagakPutraRulebook), c(J, "LDBI"),
       c(J, "Olimpiade MTK", "", olimpiadeMtkSmpJalancagakPutraRulebook),
       c(W, "Sepak Bola"), c(W, "Pencak Silat"), c(W, "CCIQ"),
-      c(W, "MSQ"), c(J2, "LOBB"),
+      c(W, "MSQ"),
       c(S, "MTQ", "", mtqSmpSagalaherangPutraRulebook),
       c(S, "English Speech", "", speechSmpSmaSagalaherangPutraRulebook),
       c(S, "MHQ", "", mhqSmpSmaSagalaherangPutraRulebook),
@@ -121,18 +136,19 @@ export const COMPETITIONS = {
   },
   putri: {
     tk: [
-      c(S, "MHQ"), c(S, "Menyanyi"), c(J, "Mewarnai"),
+      c(S, "MHQ"), c(S, "Menyanyi"), c(J, "Mewarnai", "", mewarnaiTkJalancagakPutriRulebook),
       c(W, "Mewarnai"), c(S, "Mewarnai"), c(S, "Vocal Group"),
     ],
     sd: [
-      c(J, "Solo Vokal"), c(W, "Speech"), c(S, "LCC"),
-      c(S, "MHQ"), c(J, "IPAS"), c(J, "Math Arena"),
+      c(J, "Solo Vokal"), c(J, "Speech", "", speechSdJalancagakPutriRulebook), c(S, "LCC"),
+      c(S, "MHQ"), c(J, "IPAS", "", olimpiadeIpasSdJalancagakPutriRulebook), c(J, "Math Arena"),
       c(J, "Mewarnai"), c(W, "Mewarnai"), c(S, "Mewarnai"),
       c(W, "Senam Semaphore"), c(S, "Senam Semaphore"),
       c(J, "Bertutur Siroh"), c(J2, "Bertutur Siroh"), c(S, "Bertutur Siroh"),
-      c(S, "LCC PAI"), c(J, "Sains Planner"), c(J, "Menggambar"),
-      c(J, "Storytelling"), c(W, "Storytelling"), c(J, "Spelling Bee"),
-      c(J, "Puisi"), c(J, "Kaligrafi"), c(W, "Kaligrafi"),
+      c(J, "Sains Planner", "", sainsPlannerSdJalancagakPutriRulebook),
+      c(J, "Menggambar", "", menggambarSdJalancagakPutriRulebook),
+      c(J, "Storytelling"), c(W, "Storytelling"), c(J, "Spelling Bee", "", spellingBeeSdJalancagakPutriRulebook),
+      c(J, "Puisi", "", puisiSdJalancagakPutriRulebook), c(J, "Kaligrafi"), c(W, "Kaligrafi"),
       c(W, "Fashion Show"), c(J2, "LKBB"), c(J, "Pramuka Jelajah"),
       c(J, "Rubik"), c(W, "Pantomim"), c(S, "Yel-yel Kreasi"),
     ],
@@ -140,7 +156,7 @@ export const COMPETITIONS = {
       ...withRulebooks(putriMenengah, {
         [`${J}:Solo Vokal`]: soloVokalSmpJalancagakPutriRulebook,
         [`${J}:Ratoeh Jaroe`]: ratoehJaroeSmpJalancagakPutriRulebook,
-        [`${J}:Basket`]: basketSmpJalancagakPutriRulebook,
+        [`${J}:Basket`]: basketSmpJalancagakPutraRulebook,
         [`${S}:LCC`]: lccSmpSagalaherangPutriRulebook,
         [`${S}:MHQ`]: mhqSmpSagalaherangPutriRulebook,
         [`${S}:Badminton`]: badmintonSmpSagalaherangPutriRulebook,
@@ -154,7 +170,7 @@ export const COMPETITIONS = {
       ...withRulebooks(putriMenengah, {
         [`${J}:Solo Vokal`]: soloVokalSmaJalancagakPutriRulebook,
         [`${J}:Ratoeh Jaroe`]: ratoehJaroeSmaJalancagakPutriRulebook,
-        [`${J}:Basket`]: basketSmaJalancagakPutriRulebook,
+        [`${J}:Basket`]: basketSmaJalancagakPutraRulebook,
         [`${S}:MHQ`]: mhqSmaSagalaherangPutriRulebook,
         [`${S}:Badminton`]: badmintonSmaSagalaherangPutriRulebook,
         [`${S}:Khitobah`]: khitobahSmaSagalaherangPutriRulebook,

@@ -1,4 +1,6 @@
 .site-shell.competition-page {
+  min-height: 100vh;
+  min-height: 100svh;
   padding-bottom: 80px;
   background-color: var(--bg-deep);
   background-image:
