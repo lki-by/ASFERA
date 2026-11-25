@@ -54,7 +54,8 @@ function CompetitionCard({ item }) {
 
 export default function CompetitionPage({ gender, level }) {
   const g = GENDERS.find((x) => x.key === gender) ?? GENDERS[0];
-  const lv = LEVELS.find((x) => x.key === level);
+  const availableLevels = LEVELS;
+  const lv = availableLevels.find((x) => x.key === level);
   const base = `#/competition/${g.key}`;
   const items = lv ? COMPETITIONS[g.key]?.[lv.key] ?? [] : [];
 
@@ -101,7 +102,7 @@ export default function CompetitionPage({ gender, level }) {
           )
         ) : (
           <div className="lv-grid" key={g.key}>
-            {LEVELS.map((l, i) => (
+            {availableLevels.map((l, i) => (
               <ScrollReveal className="lv-wrap" delay={i * 110} variant="zoom" key={l.key}>
                 <LevelCard href={`${base}/${l.key}`} level={l.key} label={l.label} />
               </ScrollReveal>
