@@ -1,11 +1,12 @@
 import competitionFrame from "./assets/images/competition-frame.png";
-import eventCard from "./assets/images/event-card.png";
+import putraCover from "./assets/images/competition-cover-putra.png";
+import putriCover from "./assets/images/competition-cover-putri.png";
 import ScrollReveal from "./ScrollReveal.jsx";
 import "./Competitions.css";
 
 const CATEGORIES = [
-  { key: "putra", label: "Putra" },
-  { key: "putri", label: "Putri" },
+  { key: "putra", label: "Putra", cover: putraCover },
+  { key: "putri", label: "Putri", cover: putriCover },
 ];
 
 // 👉 ID video YouTube (dari https://youtu.be/esXjFQCPIik)
@@ -48,7 +49,7 @@ export default function Competitions() {
             aria-label={`Lihat Competition ${cat.label}`}
             key={cat.key}
           >
-            <img src={eventCard} alt={`Competition ${cat.label} coming soon`} />
+            <img src={cat.cover} alt={`Cover Competition ${cat.label}`} />
             {/* kiri = Putra, kanan = Putri */}
             <span className="see-more">
               See More

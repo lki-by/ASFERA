@@ -21,7 +21,7 @@ const ADMINS = [
       },
       {
         level: "SMP",
-        desc: "Untuk informasi dan koordinasi terkait jenjang SMP dan SMA, silakan menghubungi admin putra SMA",
+        desc: "Untuk informasi dan koordinasi terkait jenjang TK dan SD, silahkan menghubungi admin putra SMP",
         contacts: [
           { phone: "0857-8800-8123", label: "Administrasi Jalancagak Putra" },
           { phone: "0877-7881-7598", label: "Administrasi Wanareja Putra" },
@@ -45,7 +45,7 @@ const ADMINS = [
       },
       {
         level: "SMP",
-        desc: "Untuk informasi dan koordinasi terkait jenjang SMP dan SMA, silakan menghubungi admin putri SMA",
+        desc: "Untuk informasi dan koordinasi terkait jenjang TK dan SD, silahkan menghubungi admin putri SMP",
         contacts: [
           { phone: "0857-8800-8123", label: "Administrasi Jalancagak Putri" },
           { phone: "0821-1608-4470", label: "Administrasi Wanareja Putri" },
