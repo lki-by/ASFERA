@@ -9,8 +9,8 @@ const CATEGORIES = [
   { key: "putri", label: "Putri", cover: putriCover },
 ];
 
-// 👉 ID video YouTube (dari https://youtu.be/esXjFQCPIik)
-const VIDEO_ID = "esXjFQCPIik";
+// Video tata cara pendaftaran Competition.
+const VIDEO_ID = "0L48b78xqlA";
 
 // Corner-nya sekarang dipasang di wrapper "showcase" (App.jsx), dipakai bareng Events.
 export default function Competitions() {
@@ -29,7 +29,7 @@ export default function Competitions() {
         <div className="competition-video-player">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?rel=0`}
-            title="Video Competition Asfera"
+            title="Video Tata Cara Pendaftaran Competition ASFERA"
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
