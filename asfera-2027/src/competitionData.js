@@ -120,7 +120,7 @@ export const COMPETITIONS = {
       c(J2, "Kawih/Solo Vocal Sunda"),
       c(W, "Solo Vokal"), c(W, "Story telling"), c(W, "Fashion Show"),
       c(W, "Senam Semaphore"),
-      c(J2, "Poster Digital", "https://forms.gle/Y9RkHoJ7NmpPXpbs5"), c(J2, "Film Pendek"),
+      c(J, "Poster Digital", "https://forms.gle/Y9RkHoJ7NmpPXpbs5"), c(J, "Film Pendek"),
       c(J2, "Pramuka Jelajah"), c(J2, "IBB (Paskibra)"),
     ],
     smp: [
@@ -191,7 +191,7 @@ export const COMPETITIONS = {
       c(J2, "Kawih/Solo Vocal Sunda"),
       c(W, "Story telling"), c(W, "Solo Vokal"), c(W, "Senam Semaphore"),
       c(W, "Fashion Show"),
-      c(J2, "Poster Digital", "https://forms.gle/Y9RkHoJ7NmpPXpbs5"), c(J2, "Film Pendek"),
+      c(J, "Poster Digital", "https://forms.gle/Y9RkHoJ7NmpPXpbs5"), c(J, "Film Pendek"),
       c(J2, "IBB (Paskibra)"), c(J2, "Pramuka Jelajah"),
     ],
     smp: [  

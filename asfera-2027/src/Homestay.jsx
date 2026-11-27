@@ -2,9 +2,11 @@ import { useRef, useState } from "react";
 import ScrollReveal from "./ScrollReveal.jsx";
 import homestayImage from "./assets/images/homestay.png";
 import homestayExpandedImage from "./assets/images/homestay-klik.png";
+import jalancagak2Rulebook from "./assets/rulebooks/homestay-jalancagak-2-2027.pdf";
 import jalancagakPutraRulebook from "./assets/rulebooks/homestay-jalancagak-putra-2027.pdf";
 import putriRulebook from "./assets/rulebooks/homestay-putri-2027.pdf";
 import sagalaherangPutraRulebook from "./assets/rulebooks/homestay-sagalaherang-putra-2027.pdf";
+import wanarejaPutraRulebook from "./assets/rulebooks/homestay-wanareja-putra-2027.pdf";
 import "./Homestay.css";
 
 // 👉 Isi link pendaftaran & rulebook di sini (Google Form / Drive / PDF).
@@ -12,17 +14,17 @@ import "./Homestay.css";
 const HOMESTAYS = [
   { name: "Homestay Jalancagak Putra", place: "Jalancagak Subang", registration: "https://docs.google.com/forms/d/e/1FAIpQLSc9SVMIp7p5ft8oWFtDYdaPTpyuMg_EQvhGiaPeHi-QQ0i5Cw/viewform", rulebook: jalancagakPutraRulebook },
   { name: "Homestay Jalancagak Putri", place: "Jalancagak Subang", registration: "https://docs.google.com/forms/d/e/1FAIpQLSfd7o46Ci275Gkn25IbbNp4pWNcbMcwOwhpmgYdckkLwuLW0A/viewform", rulebook: putriRulebook },
-  { name: "Homestay Wanareja Putra", place: "Wanareja Subang", registration: "", rulebook: "" },
+  { name: "Homestay Wanareja Putra", place: "Wanareja Subang", registration: "https://forms.gle/KjyA1ZXAxGqGq1sZ9", rulebook: wanarejaPutraRulebook },
   { name: "Homestay Wanareja Putri", place: "Wanareja Subang", registration: "https://docs.google.com/forms/d/e/1FAIpQLSf5YbN5ppeELuIZWJNizpooWxOEU2KIdSBtCu7YK06A320s8A/viewform", rulebook: putriRulebook },
   { name: "Homestay Sagalaherang Putra", place: "Sagalaherang Subang", registration: "https://docs.google.com/forms/d/e/1FAIpQLSfAAO04Ymf9_OHVApbNz0kGr7S-pFBnFZg8pgmlTBOvsPjjjA/viewform?usp=dialog", rulebook: sagalaherangPutraRulebook },
-  { name: "Homestay Sagalaherang Putri", place: "Sagalaherang Subang", registration: "", rulebook: putriRulebook },
+  { name: "Homestay Sagalaherang Putri", place: "Sagalaherang Subang", registration: "https://forms.gle/X5RjUnWx8tauJtmEA", rulebook: putriRulebook },
   {
     name: "Homestay Jalancagak 2",
     place: "Jalancagak Subang",
     note: "Campuran (Putra & Putri)",
     wide: true,
-    registration: "",
-    rulebook: "",
+    registration: "https://forms.gle/UYZa8tRuiNPvdVcH7",
+    rulebook: jalancagak2Rulebook,
   },
 ];
 
