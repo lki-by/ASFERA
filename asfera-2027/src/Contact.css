@@ -211,6 +211,96 @@
   animation-delay: calc(var(--i) * 90ms);
 }
 
+.location-map-button {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1.42 / 1;
+  padding: 0;
+  border: 2px solid rgba(232, 196, 143, 0.65);
+  border-radius: 16px;
+  background: #210905;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  cursor: zoom-in;
+}
+
+.location-map-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 300ms ease;
+}
+
+.location-map-button span {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: rgba(36, 7, 3, 0.88);
+  color: var(--parchment);
+  font-size: 0.8rem;
+}
+
+.location-map-button:hover img,
+.location-map-button:focus-visible img {
+  transform: scale(1.04);
+}
+
+.location-map-button:focus-visible,
+.location-map-close:focus-visible {
+  outline: 3px solid var(--parchment);
+  outline-offset: 3px;
+}
+
+.location-map-overlay {
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(6, 0, 0, 0.92);
+  backdrop-filter: blur(6px);
+}
+
+.location-map-dialog {
+  position: relative;
+  display: grid;
+  max-width: 100%;
+  max-height: 100%;
+  place-items: center;
+}
+
+.location-map-dialog img {
+  display: block;
+  max-width: min(94vw, 1400px);
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+}
+
+.location-map-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  background: rgba(36, 7, 3, 0.85);
+  color: #fff3dc;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
 @keyframes loc-in {
   from { opacity: 0; transform: translateY(16px) scale(0.95); }
   to { opacity: 1; transform: none; }
@@ -228,4 +318,6 @@
   .admin-levels { grid-template-columns: minmax(0, 1fr); gap: 22px; }
   .location-tab { flex: 1 1 0; padding-right: 10px; padding-left: 10px; text-align: center; }
   .location-grid { gap: 10px; }
+  .location-map-overlay { padding: 12px; }
+  .location-map-dialog img { max-width: 96vw; max-height: 90vh; }
 }

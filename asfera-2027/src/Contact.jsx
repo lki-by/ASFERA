@@ -1,9 +1,18 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import ScrollReveal from "./ScrollReveal.jsx";
 import ComingSoon from "./ComingSoon.jsx";
+import denahJalancagakPutra from "./assets/images/denah-jalancagak-putra.png";
+import denahJalancagak2Putra from "./assets/images/denah-jalancagak-2-putra.png";
+import denahSagalaherangPutra from "./assets/images/denah-sagalaherang-putra.png";
 import "./Contact.css";
 
 const CAMPUSES = ["Jalancagak", "Wanareja", "Sagalaherang", "Jalancagak 2"];
+const PUTRA_MAPS = {
+  Jalancagak: { src: denahJalancagakPutra, alt: "Denah Jalancagak Putra" },
+  Sagalaherang: { src: denahSagalaherangPutra, alt: "Denah Sagalaherang Putra" },
+  "Jalancagak 2": { src: denahJalancagak2Putra, alt: "Denah Jalancagak 2 Putra" },
+};
 
 const ADMINS = [
   {
@@ -84,7 +93,30 @@ function PhoneIcon() {
 
 export default function Contact() {
   const [tab, setTab] = useState("putra");
+  const [activeMap, setActiveMap] = useState(null);
   const tabRefs = useRef({});
+  const mapCloseRef = useRef(null);
+  const mapTriggerRef = useRef(null);
+
+  useEffect(() => {
+    if (!activeMap) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    mapCloseRef.current?.focus();
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setActiveMap(null);
+        mapTriggerRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeMap]);
 
   const onTabKeyDown = (e) => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
@@ -158,16 +190,58 @@ export default function Contact() {
             ))}
           </div>
 
-          {/* 👉 Nanti ganti <ComingSoon /> dengan foto / peta tiap kampus */}
           <div className="location-grid" id="loc-panel" role="tabpanel" aria-labelledby={`loc-tab-${tab}`} key={tab}>
             {CAMPUSES.map((campus, i) => (
               <div className="location-item" style={{ "--i": i }} key={campus}>
-                <ComingSoon variant="outline" bang caption={campus} />
+                {tab === "putra" && PUTRA_MAPS[campus] ? (
+                  <button
+                    type="button"
+                    className="location-map-button"
+                    onClick={(event) => {
+                      mapTriggerRef.current = event.currentTarget;
+                      setActiveMap(PUTRA_MAPS[campus]);
+                    }}
+                    aria-label={`Perbesar denah ${PUTRA_MAPS[campus].alt.replace("Denah ", "")}`}
+                  >
+                    <img src={PUTRA_MAPS[campus].src} alt={PUTRA_MAPS[campus].alt} />
+                    <span>Perbesar denah</span>
+                  </button>
+                ) : (
+                  <ComingSoon variant="outline" bang caption={campus} />
+                )}
               </div>
             ))}
           </div>
         </ScrollReveal>
       </div>
+      {activeMap && createPortal(
+        <div
+          className="location-map-overlay"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setActiveMap(null);
+              mapTriggerRef.current?.focus();
+            }
+          }}
+        >
+          <div className="location-map-dialog" role="dialog" aria-modal="true" aria-label={`${activeMap.alt} diperbesar`}>
+            <button
+              ref={mapCloseRef}
+              className="location-map-close"
+              type="button"
+              onClick={() => {
+                setActiveMap(null);
+                mapTriggerRef.current?.focus();
+              }}
+              aria-label="Tutup denah"
+            >
+              &times;
+            </button>
+            <img src={activeMap.src} alt={activeMap.alt} />
+          </div>
+        </div>,
+        document.body,
+      )}
     </section>
   );
 }
