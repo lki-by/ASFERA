@@ -15,7 +15,7 @@ const ADMINS = [
         contacts: [
           { phone: "0821-2736-620", label: "Administrasi Jalancagak Putra" },
           { phone: "0852-2401-9012", label: "Administrasi Wanareja Putra" },
-          { phone: "0812-7779-1000", label: "Administrasi Sagalaherang Putra" },
+          { phone: "+62 852-8214-0148", label: "Administrasi Sagalaherang Putra" },
           { phone: "0877-0503-4282", label: "Administrasi Jalancagak 2 Putra" },
         ],
       },
@@ -25,7 +25,7 @@ const ADMINS = [
         contacts: [
           { phone: "0857-8800-8123", label: "Administrasi Jalancagak Putra" },
           { phone: "0877-7881-7598", label: "Administrasi Wanareja Putra" },
-          { phone: "0812-7779-1000", label: "Administrasi Sagalaherang Putra" },
+          { phone: "+62 852-8214-0148", label: "Administrasi Sagalaherang Putra" },
           { phone: "0838-6281-8334", label: "Administrasi Jalancagak 2 Putra" },
         ],
       },
